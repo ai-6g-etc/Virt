@@ -1,3 +1,4 @@
+#以下有待整理，暂时记录在这里
 set -eo pipefail
 kubeadm reset -f
 df -h|grep kubelet |awk -F % '{print $2}'|xargs umount
