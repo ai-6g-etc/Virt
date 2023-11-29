@@ -1,9 +1,13 @@
 #!/bin/bash
 
+virsh list --all
+
 # 停止并删除所有虚拟机
 virsh list --all --name | while read -r vm; do
     virsh shutdown "$vm"
     virsh undefine "$vm"
+    virsh destroy "$vm"
+    virsh undefine "$vm" --managed-save --snapshots-metadata
 done
 
 # 删除虚拟机磁盘镜像文件
@@ -20,3 +24,4 @@ rm -rf /etc/libvirt/qemu/networks/*.xml
 rm -rf /etc/libvirt/qemu/networks/autostart/*.xml
 
 echo "所有虚拟机和网络已成功清除。"
+
